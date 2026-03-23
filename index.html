@@ -131,7 +131,7 @@
                     <a href="https://www.clubeduratex.com.br/" class="link-button" target="_blank">
                         <i class="far fa-file-alt"></i> Clube duratex blog
                     </a>
-                    <a href="https://wa.me/5511975888455?text=Olá!%20Estou%20vindo%20pelo%20Linktree%20do%20Clube%20Duratex%20e%20gostaria%20de%20falar%20com%20vocês." class="link-button" target="_blank">
+                    <a href="https://wa.me/5511975888455?text=Olá!%20Gostaria%20de%20falar%20com%20o%20Clube%20Duratex." class="link-button" target="_blank">
                         <i class="fab fa-whatsapp"></i> Fale com o clube
                     </a>
                 </div>
@@ -202,17 +202,22 @@
             const texture = document.getElementById('texture');
             const content = document.getElementById('rec-content');
             const page = document.getElementById('recanto-page');
+            
             canvas.style.backgroundColor = color;
             texture.style.opacity = isWood ? '0.2' : '0';
+            
             const darkPatterns = ['Marrom Retrô', 'Hibisco', 'Timborana Silvestre', 'Carvalho Brun'];
             if (darkPatterns.includes(name)) page.classList.add('dark-mode-rec');
             else page.classList.remove('dark-mode-rec');
+
             content.classList.remove('active-view');
             void content.offsetWidth;
             content.classList.add('active-view');
+
             document.getElementById('rec-title').innerText = name;
             document.getElementById('rec-line').innerText = line;
             document.getElementById('rec-desc').innerText = desc;
+
             document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
             el.classList.add('active');
         }
