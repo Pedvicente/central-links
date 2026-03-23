@@ -32,7 +32,6 @@
             min-height: 100vh;
         }
 
-        /* --- CONTAINER BIO (HOME E INSTRUTORES) --- */
         .bio-wrapper {
             display: flex; justify-content: center; align-items: flex-start;
             min-height: 100vh; width: 100%;
@@ -47,7 +46,6 @@
             display: flex; flex-direction: column;
         }
 
-        /* Sistema de Telas Bio */
         .page { display: none; flex-direction: column; height: 100%; animation: fadeIn 0.4s ease; }
         .page.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -83,7 +81,7 @@
 
         .footer-text { margin-top: auto; padding-top: 40px; color: #666; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* --- PÁGINA RECANTO (CORRIGIDA) --- */
+        /* --- PÁGINA RECANTO --- */
         #recanto-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff; z-index: 1000; display: none;
@@ -106,7 +104,6 @@
         .swatch { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
         .swatch.active { border-color: #222; transform: scale(1.1); }
 
-        /* Dark Mode Recanto */
         .dark-mode-rec .hero-header, .dark-mode-rec .content-recanto, .dark-mode-rec .recanto-logo, .dark-mode-rec .recanto-ui-back { color: #fff; }
         .dark-mode-rec .collection-desc { color: rgba(255,255,255,0.8); }
         .dark-mode-rec .swatch.active { border-color: #fff; }
@@ -134,11 +131,11 @@
                     <a href="https://www.clubeduratex.com.br/" class="link-button" target="_blank">
                         <i class="far fa-file-alt"></i> Clube duratex blog
                     </a>
-                    <a href="#" class="link-button">
-                        <i class="far fa-comment-dots"></i> Fale com o clube
+                    <a href="https://wa.me/5511975888455?text=Olá!%20Estou%20vindo%20pelo%20Linktree%20do%20Clube%20Duratex%20e%20gostaria%20de%20falar%20com%20vocês." class="link-button" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Fale com o clube
                     </a>
                 </div>
-                <div class="footer-text">CLUBE DURATEX • INSTRUTORES TÉCNICOS</div>
+                <div class="footer-text">CLUBE DURATEX • SORTEADOR OFICIAL</div>
             </div>
 
             <div id="instrutores" class="page">
@@ -151,7 +148,7 @@
                     <a href="https://www.instagram.com/lucianolima.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> Luciano Lima</a>
                     <a href="https://www.instagram.com/pedro.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> Pedro Vicente</a>
                 </div>
-                <div class="footer-text">CLUBE DURATEX • SORTEADOR OFICIAL</div>
+                <div class="footer-text">CLUBE DURATEX • TIME DE TREINAMENTO</div>
             </div>
 
         </div>
@@ -184,14 +181,12 @@
     </div>
 
     <script>
-        // Navegação Bio (Nomes de função alterados para evitar conflito)
         function goToPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0,0);
         }
 
-        // Sistema Recanto
         function showRecanto() {
             document.getElementById('recanto-page').style.display = 'block';
             document.getElementById('bio-main').style.display = 'none';
@@ -207,22 +202,17 @@
             const texture = document.getElementById('texture');
             const content = document.getElementById('rec-content');
             const page = document.getElementById('recanto-page');
-            
             canvas.style.backgroundColor = color;
             texture.style.opacity = isWood ? '0.2' : '0';
-            
             const darkPatterns = ['Marrom Retrô', 'Hibisco', 'Timborana Silvestre', 'Carvalho Brun'];
             if (darkPatterns.includes(name)) page.classList.add('dark-mode-rec');
             else page.classList.remove('dark-mode-rec');
-
             content.classList.remove('active-view');
             void content.offsetWidth;
             content.classList.add('active-view');
-
             document.getElementById('rec-title').innerText = name;
             document.getElementById('rec-line').innerText = line;
             document.getElementById('rec-desc').innerText = desc;
-
             document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
             el.classList.add('active');
         }
