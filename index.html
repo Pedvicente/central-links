@@ -131,7 +131,7 @@
                     <a href="https://www.clubeduratex.com.br/" class="link-button" target="_blank">
                         <i class="far fa-file-alt"></i> Clube duratex blog
                     </a>
-                    <a href="https://wa.me/5511975888455?text=Olá!%20Gostaria%20de%20falar%20com%20o%20Clube%20Duratex." class="link-button" target="_blank">
+                    <a href="https://api.whatsapp.com/send?phone=5511975888455&text=Olá!%20Gostaria%20de%20falar%20com%20o%20Clube%20Duratex." class="link-button" target="_blank">
                         <i class="fab fa-whatsapp"></i> Fale com o clube
                     </a>
                 </div>
@@ -181,22 +181,26 @@
     </div>
 
     <script>
+        // Navegação entre Home e Instrutores
         function goToPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo(0,0);
         }
 
+        // Abre a Coleção Recanto
         function showRecanto() {
             document.getElementById('recanto-page').style.display = 'block';
             document.getElementById('bio-main').style.display = 'none';
         }
 
+        // Fecha a Coleção Recanto
         function hideRecanto() {
             document.getElementById('recanto-page').style.display = 'none';
             document.getElementById('bio-main').style.display = 'flex';
         }
 
+        // Troca os padrões na página Recanto
         function updateRec(name, line, color, isWood, el, desc) {
             const canvas = document.getElementById('canvas');
             const texture = document.getElementById('texture');
