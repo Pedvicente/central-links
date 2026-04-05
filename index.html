@@ -10,11 +10,10 @@
     <style>
         :root {
             --bg-navy: #000839;
-            --card-gray: #222222;
+            --card-gray: #1a1a1a;
             --btn-blue: #0d3b85;
             --btn-hover: #144eb1;
             --accent-blue: #7c92ff;
-            --duratex-blue-corp: #005691;
             --papiro: #e5dcd2;
             --retro: #5d473a;
             --hibisco: #6c2d3a;
@@ -30,58 +29,77 @@
             background-color: var(--bg-navy);
             font-family: 'Roboto', sans-serif;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .bio-wrapper {
+            background: radial-gradient(circle at top right, #00155a, var(--bg-navy));
             display: flex; justify-content: center; align-items: flex-start;
             min-height: 100vh; width: 100%;
         }
 
         .container {
             background-color: var(--card-gray);
-            width: 92%; max-width: 400px; min-height: 600px;
-            padding: 40px 20px; border-radius: 30px;
-            text-align: center; box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
-            margin: 20px auto; position: relative;
+            width: 92%; max-width: 400px; min-height: 640px;
+            padding: 45px 25px; border-radius: 40px;
+            text-align: center; 
+            box-shadow: 0px 20px 40px rgba(0,0,0,0.6);
+            margin: 30px auto; position: relative;
             display: flex; flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .page { display: none; flex-direction: column; height: 100%; animation: fadeIn 0.4s ease; }
-        .page.active { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .page { display: none; flex-direction: column; height: 100%; }
+        .page.active { display: flex; animation: slideIn 0.4s ease forwards; }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .logo-area { margin-bottom: 30px; flex-shrink: 0; }
+        .logo-area { margin-bottom: 35px; }
         .logo-text {
-            color: #ffffff; font-size: 32px; font-weight: bold; line-height: 0.9;
-            border-left: 4px solid var(--accent-blue); border-bottom: 4px solid var(--accent-blue);
-            display: inline-block; padding: 10px 20px; text-transform: lowercase;
+            color: #ffffff; font-size: 34px; font-weight: bold; line-height: 0.9;
+            border-left: 5px solid var(--accent-blue);
+            display: inline-block; padding: 10px 22px; text-transform: lowercase;
         }
-        .logo-text span { display: block; color: var(--accent-blue); }
+        .logo-text span { display: block; color: var(--accent-blue); letter-spacing: 1px; }
 
-        .links-container { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .links-container { display: flex; flex-direction: column; gap: 14px; width: 100%; }
 
         .link-button {
             background-color: var(--btn-blue);
             color: white; text-decoration: none;
-            padding: 16px 20px; border-radius: 12px;
+            padding: 18px 22px; border-radius: 16px;
             display: flex; align-items: center;
-            font-size: 16px; font-weight: 500;
+            font-size: 15px; font-weight: 600;
             border: none; cursor: pointer; width: 100%;
-            transition: 0.2s;
+            transition: all 0.3s var(--transition-recanto);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-align: left;
         }
+
         .link-button:hover { background-color: var(--btn-hover); }
-        .link-button i { margin-right: 15px; font-size: 20px; width: 25px; text-align: center; }
+        .link-button:active { transform: scale(0.97); }
+        .link-button i { margin-right: 15px; font-size: 20px; width: 25px; text-align: center; opacity: 0.9; }
 
         .btn-back {
-            color: var(--accent-blue); background: none; border: none;
-            cursor: pointer; font-size: 14px; margin-bottom: 20px;
-            display: flex; align-items: center; gap: 8px; padding: 5px 0;
+            color: var(--accent-blue); background: rgba(124, 146, 255, 0.1); 
+            border: none; border-radius: 50px;
+            cursor: pointer; font-size: 12px; margin-bottom: 25px;
+            display: flex; align-items: center; gap: 8px; padding: 8px 15px;
             text-transform: uppercase; font-weight: bold; align-self: flex-start;
         }
 
-        .footer-text { margin-top: auto; padding-top: 40px; color: #666; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        .share-action {
+            margin-top: 25px; background: none; border: none; color: #666;
+            font-size: 13px; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; gap: 8px; transition: 0.3s;
+        }
 
-        /* --- PÁGINA RECANTO --- */
+        .footer-text { margin-top: auto; padding-top: 30px; color: #555; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- Recanto Experience --- */
         #recanto-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #fff; z-index: 1000; display: none;
@@ -89,138 +107,131 @@
         }
         .canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; transition: background 1.2s var(--transition-recanto); background-color: var(--papiro); z-index: 0; }
         .wood-texture { position: absolute; width: 100%; height: 100%; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 60px); opacity: 0; transition: opacity 0.8s; }
-        
-        .recanto-scroller { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100%; padding: 110px 5% 150px; align-items: center; }
-        .recanto-logo { position: fixed; top: 30px; left: 30px; font-weight: 700; font-size: 0.75rem; letter-spacing: 3px; color: var(--duratex-blue-corp); z-index: 1001; text-transform: uppercase; }
-        .recanto-ui-back { position: fixed; top: 20px; right: 20px; z-index: 1002; background: rgba(0,0,0,0.1); border: none; padding: 10px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; }
-        
-        .hero-header { width: 100%; text-align: center; margin-bottom: 40px; color: #222; }
-        .collection-desc { max-width: 600px; margin: 12px auto; font-size: 0.85rem; font-weight: 300; line-height: 1.5; color: rgba(0,0,0,0.7); }
-        .content-recanto { text-align: center; max-width: 500px; opacity: 0; transform: translateY(20px); transition: all 0.8s var(--transition-recanto); color: #222; margin: auto 0; }
-        .content-recanto.active-view { opacity: 1; transform: translateY(0); }
-        
-        .dock-wrapper { position: fixed; bottom: 0; left: 0; width: 100%; padding: 20px 0 30px; display: flex; justify-content: center; z-index: 1005; background: linear-gradient(to top, rgba(255,255,255,0.8), transparent); }
-        .dock { background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); padding: 10px; border-radius: 100px; display: flex; gap: 10px; border: 1px solid rgba(255,255,255,0.4); }
-        .swatch { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
-        .swatch.active { border-color: #222; transform: scale(1.1); }
-
-        .dark-mode-rec .hero-header, .dark-mode-rec .content-recanto, .dark-mode-rec .recanto-logo, .dark-mode-rec .recanto-ui-back { color: #fff; }
-        .dark-mode-rec .collection-desc { color: rgba(255,255,255,0.8); }
-        .dark-mode-rec .swatch.active { border-color: #fff; }
+        .recanto-scroller { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100%; padding: 80px 8% 160px; align-items: center; }
+        .recanto-ui-back { position: fixed; top: 20px; right: 20px; z-index: 1002; background: rgba(0,0,0,0.15); backdrop-filter: blur(5px); border: none; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        .dock-wrapper { position: fixed; bottom: 0; left: 0; width: 100%; padding: 20px 0 35px; display: flex; justify-content: center; z-index: 1005; }
+        .dock { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 12px; border-radius: 100px; display: flex; gap: 12px; border: 1px solid rgba(255,255,255,0.4); }
+        .swatch { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: 0.4s var(--transition-recanto); }
+        .swatch.active { border-color: #222; transform: scale(1.2) translateY(-5px); }
+        .dark-mode-rec .recanto-ui-back { color: #fff; background: rgba(255,255,255,0.2); }
+        .dark-mode-rec #rec-content { color: #fff; }
+        .dark-mode-rec #rec-line { color: var(--accent-blue); }
     </style>
 </head>
 <body>
 
     <div id="bio-main" class="bio-wrapper">
         <div class="container">
-            
             <div id="home" class="page active">
                 <div class="logo-area">
                     <div class="logo-text">clube<br><span>duratex</span></div>
                 </div>
+                
                 <div class="links-container">
-                    <button onclick="showRecanto()" class="link-button" style="background-color: #b88b58;">
+                    <button onclick="showRecanto()" class="link-button" style="background: linear-gradient(135deg, #b88b58, #8e623a);">
                         <i class="fas fa-leaf"></i> COLEÇÃO RECANTO
                     </button>
+
                     <button onclick="goToPage('instrutores')" class="link-button">
                         <i class="fab fa-instagram"></i> INSTAGRAM INSTRUTORES
                     </button>
+
                     <a href="https://www.clubeduratex.com.br/" class="link-button" target="_blank">
-                        <i class="fas fa-mobile-alt"></i> Clube duratex app
+                        <i class="fas fa-mobile-alt"></i> CLUBE DURATEX APP
                     </a>
-                    <a href="https://www.duratex.com.br/blog" class="link-button" target="_blank">
-                        <i class="far fa-file-alt"></i> Duratex blog
+
+                    <a href="https://api.whatsapp.com/send?phone=5511975888455" class="link-button" target="_blank">
+                        <i class="fab fa-whatsapp"></i> FALE COM O CLUBE
                     </a>
-                    <a href="https://api.whatsapp.com/send?phone=5511975888455&text=Olá!%20Gostaria%20de%20falar%20com%20o%20Clube%20Duratex." class="link-button" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Fale com o clube
+
+                    <a href="https://www.duratex.com.br/onde-comprar?utm_source=linktree&utm_medium=bio&utm_campaign=onde_comprar&utm_content=link_in_bio" 
+                       class="link-button" target="_blank">
+                        <i class="fas fa-map-marker-alt"></i> AONDE COMPRAR
                     </a>
                 </div>
+
+                <button class="share-action" onclick="sharePage()">
+                    <i class="fas fa-share-nodes"></i> Compartilhar Link
+                </button>
                 <div class="footer-text">CLUBE DURATEX • TIME DE TREINAMENTO</div>
             </div>
 
             <div id="instrutores" class="page">
-                <button onclick="goToPage('home')" class="btn-back"><i class="fas fa-chevron-left"></i> VOLTAR</button>
-                <div class="logo-area"><div class="logo-text">clube<br><span>duratex</span></div></div>
-                <h2 style="color:white; font-size:16px; text-transform:uppercase; margin-bottom:20px;">Instrutores</h2>
+                <button onclick="goToPage('home')" class="btn-back"><i class="fas fa-arrow-left"></i> VOLTAR</button>
+                <div class="logo-area"><div class="logo-text" style="font-size: 24px;">time<span>treinamento</span></div></div>
                 <div class="links-container">
-                    <a href="https://www.instagram.com/gabriel.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> Gabriel Carvalho</a>
-                    <a href="https://www.instagram.com/indiara.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> Indiara Peres</a>
-                    <a href="https://www.instagram.com/lucianolima.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> Luciano Lima</a>
-                    <a href="https://www.instagram.com/pedro.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> Pedro Vicente</a>
+                    <a href="https://www.instagram.com/gabriel.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> GABRIEL CARVALHO</a>
+                    <a href="https://www.instagram.com/indiara.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> INDIARA PERES</a>
+                    <a href="https://www.instagram.com/lucianolima.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> LUCIANO LIMA</a>
+                    <a href="https://www.instagram.com/pedro.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> PEDRO VICENTE</a>
                 </div>
-                <div class="footer-text">CLUBE DURATEX • TIME DE TREINAMENTO</div>
             </div>
-
         </div>
     </div>
 
     <div id="recanto-page">
         <button class="recanto-ui-back" onclick="hideRecanto()">✕ FECHAR</button>
-        <div class="recanto-logo">Duratex</div>
         <div class="canvas" id="canvas"><div class="wood-texture" id="texture"></div></div>
         <div class="recanto-scroller">
-            <header class="hero-header">
-                <h1>Coleção Recanto</h1>
-                <p class="collection-desc">A <strong>Coleção Recanto</strong> é um convite ao design que acolhe. Inspirada na busca por refúgios sensoriais, ela une a brasilidade da <strong>Timborana Silvestre</strong> à calmaria dos unicolores.</p>
-            </header>
-            <div class="content-recanto active-view" id="rec-content">
-                <span class="line-tag" id="rec-line">Linha Essencial</span>
-                <h2 id="rec-title" style="font-size: 2.5rem; margin:0; font-weight: 100;">Bege Papiro</h2>
-                <p id="rec-desc" style="font-size: 0.9rem; margin-top:15px; font-weight: 300;">Inspirado na trama do papel artesanal, traz uma tonalidade aquecida.</p>
+            <div id="rec-content" style="text-align: center; transition: 0.5s; max-width: 500px;">
+                <span id="rec-line" style="font-size: 13px; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; color: var(--duratex-blue-corp);">Minimalista e onírico</span>
+                <h2 id="rec-title" style="font-size: 2.5rem; margin:15px 0; font-weight: 300; font-family: 'Montserrat';">Bege papiro</h2>
+                <p id="rec-desc" style="font-size: 1rem; line-height: 1.8; font-weight: 300;">O Bege Papiro expressa a leveza como estado essencial. Seu tom aquecido cria uma pausa visual, onde o excesso se dissolve e o espaço respira. Entre matéria e sensibilidade, estabelece uma base silenciosa que acolhe novas conexões, equilibrando tecnologia, afeto e bem-estar.</p>
             </div>
         </div>
         <div class="dock-wrapper">
             <nav class="dock">
-                <div class="swatch active" style="background: var(--papiro);" onclick="updateRec('Bege Papiro', 'Linha Essencial', 'var(--papiro)', false, this, 'Inspirado na trama do papel artesanal.')"></div>
-                <div class="swatch" style="background: var(--retro);" onclick="updateRec('Marrom Retrô', 'Linha Essencial', 'var(--retro)', false, this, 'Tonalidade terrosa que traz estabilidade.')"></div>
-                <div class="swatch" style="background: var(--hibisco);" onclick="updateRec('Hibisco', 'Linha Essencial', 'var(--hibisco)', false, this, 'Vinho profundo e sofisticado.')"></div>
-                <div class="swatch" style="background: var(--timborana); background-image: linear-gradient(45deg, #b88b58, #8e623a);" onclick="updateRec('Timborana Silvestre', 'Linha Thera', 'var(--timborana)', true, this, 'Brasilidade e toque sensorial único.')"></div>
-                <div class="swatch" style="background: var(--brun); background-image: linear-gradient(45deg, #2c1f18, #4a3728);" onclick="updateRec('Carvalho Brun', 'Linha Thera', 'var(--brun)', true, this, 'Madeira escura e luxuosa.')"></div>
+                <div class="swatch active" style="background: var(--papiro);" onclick="updateRec('Bege papiro', 'Minimalista e onírico', 'var(--papiro)', false, this, 'O Bege Papiro expressa a leveza como estado essencial. Seu tom aquecido cria uma pausa visual, onde o excesso se dissolve e o espaço respira. Entre matéria e sensibilidade, estabelece uma base silenciosa que acolhe novas conexões, equilibrando tecnologia, afeto e bem-estar.')"></div>
+                <div class="swatch" style="background: var(--retro);" onclick="updateRec('Marrom retro', 'Tons da terra', 'var(--retro)', false, this, 'O Marrom Retrô emerge como expressão do tempo inscrito na matéria. Sua tonalidade terrosa carrega a memória dos gestos artesanais e a força dos pigmentos de origem, criando espaços onde a tradição se atualiza e a identidade se revela de forma íntima e permanente.')"></div>
+                <div class="swatch" style="background: var(--hibisco);" onclick="updateRec('Hibisco', 'Vintage e atemporal', 'var(--hibisco)', false, this, 'O padrão Hibisco revela uma profundidade que atravessa o tempo. Sua cor acolhedora ressignifica o vintage com um olhar contemporâneo, despertando memórias afetivas e uma sensação de familiaridade. Entre o lúdico e o essencial, cria ambientes que celebram a permanência do afeto e a força de um estilo que não envelhece.')"></div>
+                <div class="swatch" style="background: var(--timborana); background-image: linear-gradient(45deg, #b88b58, #8e623a);" onclick="updateRec('Timborana silvestre', 'Naturalidade brasileira', 'var(--timborana)', true, this, 'Celebrando a beleza em seu estado mais genuíno, a Timborana Silvestre traduz a força silenciosa da natureza bruta. Seus tons aquecidos e texturas profundas evocam o orgânico, criando uma atmosfera sensível que reconecta os espaços à sua essência primordial.')"></div>
+                <div class="swatch" style="background: var(--brun); background-image: linear-gradient(45deg, #2c1f18, #4a3728);" onclick="updateRec('Carvalho brun', 'Intenso e afetivo', 'var(--brun)', true, this, 'O Carvalho Brun traduz o encontro entre memória e profundidade. Em tons escuros e envolventes, sua presença cria um refúgio sensorial, onde o afeto se manifesta no silêncio da matéria. Uma madeira que acolhe, instiga e transforma o espaço em uma experiência íntima, intensa e carregada de significado.')"></div>
             </nav>
         </div>
     </div>
 
     <script>
-        // Navegação entre Home e Instrutores
         function goToPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0,0);
         }
 
-        // Abre a Coleção Recanto
+        async function sharePage() {
+            try {
+                if (navigator.share) { await navigator.share({ title: 'Clube Duratex', url: window.location.href }); } 
+                else { navigator.clipboard.writeText(window.location.href); alert('Link copiado!'); }
+            } catch (err) {}
+        }
+
         function showRecanto() {
             document.getElementById('recanto-page').style.display = 'block';
-            document.getElementById('bio-main').style.display = 'none';
+            document.body.style.overflow = 'hidden';
         }
 
-        // Fecha a Coleção Recanto
         function hideRecanto() {
             document.getElementById('recanto-page').style.display = 'none';
-            document.getElementById('bio-main').style.display = 'flex';
+            document.body.style.overflow = 'auto';
         }
 
-        // Troca os padrões na página Recanto
         function updateRec(name, line, color, isWood, el, desc) {
-            const canvas = document.getElementById('canvas');
-            const texture = document.getElementById('texture');
             const content = document.getElementById('rec-content');
-            const page = document.getElementById('recanto-page');
-            
-            canvas.style.backgroundColor = color;
-            texture.style.opacity = isWood ? '0.2' : '0';
-            
-            const darkPatterns = ['Marrom Retrô', 'Hibisco', 'Timborana Silvestre', 'Carvalho Brun'];
-            if (darkPatterns.includes(name)) page.classList.add('dark-mode-rec');
-            else page.classList.remove('dark-mode-rec');
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(10px)';
 
-            content.classList.remove('active-view');
-            void content.offsetWidth;
-            content.classList.add('active-view');
+            setTimeout(() => {
+                document.getElementById('canvas').style.backgroundColor = color;
+                document.getElementById('texture').style.opacity = isWood ? '0.2' : '0';
+                
+                const isDark = ['Marrom retro', 'Hibisco', 'Timborana silvestre', 'Carvalho brun'].includes(name);
+                document.getElementById('recanto-page').classList.toggle('dark-mode-rec', isDark);
 
-            document.getElementById('rec-title').innerText = name;
-            document.getElementById('rec-line').innerText = line;
-            document.getElementById('rec-desc').innerText = desc;
+                document.getElementById('rec-title').innerText = name;
+                document.getElementById('rec-line').innerText = line;
+                document.getElementById('rec-desc').innerText = desc;
+                
+                content.style.opacity = '1';
+                content.style.transform = 'translateY(0)';
+            }, 300);
 
             document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
             el.classList.add('active');
