@@ -12,7 +12,6 @@
             --bg-navy: #000839;
             --card-gray: #1a1a1a;
             --btn-blue: #0d3b85;
-            --btn-hover: #144eb1;
             --accent-blue: #7c92ff;
             --papiro: #e5dcd2;
             --retro: #5d473a;
@@ -29,7 +28,6 @@
             background-color: var(--bg-navy);
             font-family: 'Roboto', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         .bio-wrapper {
@@ -58,11 +56,7 @@
         }
 
         .logo-area { margin-bottom: 35px; }
-        .logo-text {
-            color: #ffffff; font-size: 34px; font-weight: bold; line-height: 0.9;
-            border-left: 5px solid var(--accent-blue);
-            display: inline-block; padding: 10px 22px; text-transform: lowercase;
-        }
+        .logo-text { color: #ffffff; font-size: 34px; font-weight: bold; line-height: 0.9; border-left: 5px solid var(--accent-blue); display: inline-block; padding: 10px 22px; text-transform: lowercase; }
         .logo-text span { display: block; color: var(--accent-blue); letter-spacing: 1px; }
 
         .links-container { display: flex; flex-direction: column; gap: 14px; width: 100%; }
@@ -74,14 +68,12 @@
             display: flex; align-items: center;
             font-size: 15px; font-weight: 600;
             border: none; cursor: pointer; width: 100%;
-            transition: all 0.3s var(--transition-recanto);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
             text-align: left;
         }
 
-        .link-button:hover { background-color: var(--btn-hover); }
         .link-button:active { transform: scale(0.97); }
-        .link-button i { margin-right: 15px; font-size: 20px; width: 25px; text-align: center; opacity: 0.9; }
+        .link-button i { margin-right: 15px; font-size: 20px; width: 25px; text-align: center; }
 
         .btn-back {
             color: var(--accent-blue); background: rgba(124, 146, 255, 0.1); 
@@ -91,74 +83,83 @@
             text-transform: uppercase; font-weight: bold; align-self: flex-start;
         }
 
-        .share-action {
-            margin-top: 25px; background: none; border: none; color: #666;
-            font-size: 13px; cursor: pointer; display: flex; align-items: center;
-            justify-content: center; gap: 8px; transition: 0.3s;
-        }
+        /* --- CALCULADORA SIMPLIFICADA --- */
+        .calc-box { text-align: left; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; margin-top: 10px; }
+        .calc-label { display: block; color: #888; font-size: 12px; margin-bottom: 5px; font-weight: bold; }
+        .calc-input { width: 100%; background: #000; border: 1px solid #333; border-radius: 10px; padding: 12px; color: #fff; margin-bottom: 15px; font-size: 16px; outline: none; }
+        .calc-input:focus { border-color: var(--accent-blue); }
+
+        .res-destaque { background: #0d3b85; padding: 20px; border-radius: 20px; text-align: center; margin-top: 10px; }
+        .res-destaque span { display: block; color: #7c92ff; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+        .res-destaque strong { font-size: 28px; color: #fff; display: block; margin-top: 5px; }
 
         .footer-text { margin-top: auto; padding-top: 30px; color: #555; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
 
         /* --- Recanto Experience --- */
-        #recanto-page {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 1000; display: none;
-            font-family: 'Montserrat', sans-serif; overflow-y: auto;
-        }
-        .canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; transition: background 1.2s var(--transition-recanto); background-color: var(--papiro); z-index: 0; }
-        .wood-texture { position: absolute; width: 100%; height: 100%; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 60px); opacity: 0; transition: opacity 0.8s; }
-        .recanto-scroller { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100%; padding: 80px 8% 160px; align-items: center; }
-        .recanto-ui-back { position: fixed; top: 20px; right: 20px; z-index: 1002; background: rgba(0,0,0,0.15); backdrop-filter: blur(5px); border: none; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        #recanto-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 1000; display: none; font-family: 'Montserrat', sans-serif; overflow-y: auto; }
+        .canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; transition: background 1.2s; background-color: var(--papiro); z-index: 0; }
+        .wood-texture { position: absolute; width: 100%; height: 100%; background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 60px); opacity: 0; pointer-events: none; }
+        .recanto-scroller { position: relative; z-index: 1; display: flex; flex-direction: column; padding: 80px 8% 160px; align-items: center; }
+        .recanto-ui-back { position: fixed; top: 20px; right: 20px; z-index: 1002; background: rgba(0,0,0,0.15); border: none; padding: 12px 18px; border-radius: 50px; cursor: pointer; font-weight: bold; }
         .dock-wrapper { position: fixed; bottom: 0; left: 0; width: 100%; padding: 20px 0 35px; display: flex; justify-content: center; z-index: 1005; }
         .dock { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 12px; border-radius: 100px; display: flex; gap: 12px; border: 1px solid rgba(255,255,255,0.4); }
-        .swatch { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: 0.4s var(--transition-recanto); }
+        .swatch { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: 0.4s; }
         .swatch.active { border-color: #222; transform: scale(1.2) translateY(-5px); }
-        .dark-mode-rec .recanto-ui-back { color: #fff; background: rgba(255,255,255,0.2); }
         .dark-mode-rec #rec-content { color: #fff; }
-        .dark-mode-rec #rec-line { color: var(--accent-blue); }
     </style>
 </head>
 <body>
 
-    <div id="bio-main" class="bio-wrapper">
+    <div class="bio-wrapper">
         <div class="container">
             <div id="home" class="page active">
                 <div class="logo-area">
                     <div class="logo-text">clube<br><span>duratex</span></div>
                 </div>
-                
                 <div class="links-container">
                     <button onclick="showRecanto()" class="link-button" style="background: linear-gradient(135deg, #b88b58, #8e623a);">
                         <i class="fas fa-leaf"></i> COLEÇÃO RECANTO
                     </button>
-
+                    <button onclick="goToPage('marceneiro-calc')" class="link-button">
+                        <i class="fas fa-hammer"></i> PREÇO DO MEU MÓVEL
+                    </button>
                     <button onclick="goToPage('instrutores')" class="link-button">
                         <i class="fab fa-instagram"></i> INSTAGRAM INSTRUTORES
                     </button>
+                    <a href="https://www.clubeduratex.com.br/" class="link-button" target="_blank"><i class="fas fa-mobile-alt"></i> CLUBE DURATEX APP</a>
+                    <a href="https://api.whatsapp.com/send?phone=5511975888455" class="link-button" target="_blank"><i class="fab fa-whatsapp"></i> FALE COM O CLUBE</a>
+                    <a href="https://www.duratex.com.br/onde-comprar" class="link-button" target="_blank"><i class="fas fa-map-marker-alt"></i> AONDE COMPRAR</a>
+                </div>
+                <div class="footer-text">CLUBE DURATEX • TIME DE TREINAMENTO</div>
+            </div>
 
-                    <a href="https://www.clubeduratex.com.br/" class="link-button" target="_blank">
-                        <i class="fas fa-mobile-alt"></i> CLUBE DURATEX APP
-                    </a>
+            <div id="marceneiro-calc" class="page">
+                <button onclick="goToPage('home')" class="btn-back"><i class="fas fa-arrow-left"></i> VOLTAR</button>
+                <div class="logo-area" style="margin-bottom: 10px;"><div class="logo-text" style="font-size: 22px;">calculadora<span>fácil</span></div></div>
+                
+                <div class="calc-box">
+                    <label class="calc-label">1. Suas contas (Aluguel, Luz, Internet)</label>
+                    <input type="number" id="custoFixo" class="calc-input" placeholder="Ex: 1500" oninput="calcSimples()">
+                    
+                    <label class="calc-label">2. Seu salário por mês (Livre)</label>
+                    <input type="number" id="salario" class="calc-input" placeholder="Ex: 4000" oninput="calcSimples()">
+                    
+                    <label class="calc-label">3. Gasto de Material para o móvel</label>
+                    <input type="number" id="mat" class="calc-input" placeholder="MDF, ferragem..." oninput="calcSimples()">
 
-                    <a href="https://api.whatsapp.com/send?phone=5511975888455" class="link-button" target="_blank">
-                        <i class="fab fa-whatsapp"></i> FALE COM O CLUBE
-                    </a>
-
-                    <a href="https://www.duratex.com.br/onde-comprar?utm_source=linktree&utm_medium=bio&utm_campaign=onde_comprar&utm_content=link_in_bio" 
-                       class="link-button" target="_blank">
-                        <i class="fas fa-map-marker-alt"></i> AONDE COMPRAR
-                    </a>
+                    <label class="calc-label">4. Quantos dias para fazer esse móvel?</label>
+                    <input type="number" id="diasMovel" class="calc-input" placeholder="Ex: 3 dias" oninput="calcSimples()">
                 </div>
 
-                <button class="share-action" onclick="sharePage()">
-                    <i class="fas fa-share-nodes"></i> Compartilhar Link
-                </button>
-                <div class="footer-text">CLUBE DURATEX • TIME DE TREINAMENTO</div>
+                <div class="res-destaque">
+                    <span>Venda por no mínimo:</span>
+                    <strong id="outTotal">R$ 0,00</strong>
+                </div>
+                <div class="footer-text" style="margin-top: 15px;">Calculado com 22 dias/mês e reserva técnica de 15%.</div>
             </div>
 
             <div id="instrutores" class="page">
                 <button onclick="goToPage('home')" class="btn-back"><i class="fas fa-arrow-left"></i> VOLTAR</button>
-                <div class="logo-area"><div class="logo-text" style="font-size: 24px;">time<span>treinamento</span></div></div>
                 <div class="links-container">
                     <a href="https://www.instagram.com/gabriel.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> GABRIEL CARVALHO</a>
                     <a href="https://www.instagram.com/indiara.dexco" class="link-button" target="_blank"><i class="fab fa-instagram"></i> INDIARA PERES</a>
@@ -174,18 +175,18 @@
         <div class="canvas" id="canvas"><div class="wood-texture" id="texture"></div></div>
         <div class="recanto-scroller">
             <div id="rec-content" style="text-align: center; transition: 0.5s; max-width: 500px;">
-                <span id="rec-line" style="font-size: 13px; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; color: var(--duratex-blue-corp);">Minimalista e onírico</span>
-                <h2 id="rec-title" style="font-size: 2.5rem; margin:15px 0; font-weight: 300; font-family: 'Montserrat';">Bege papiro</h2>
+                <span id="rec-line" style="font-size: 13px; text-transform: uppercase; letter-spacing: 3px; font-weight: bold; color: #0d3b85;">Minimalista e onírico</span>
+                <h2 id="rec-title" style="font-size: 2.5rem; margin:15px 0; font-weight: 300;">Bege papiro</h2>
                 <p id="rec-desc" style="font-size: 1rem; line-height: 1.8; font-weight: 300;">O Bege Papiro expressa a leveza como estado essencial. Seu tom aquecido cria uma pausa visual, onde o excesso se dissolve e o espaço respira. Entre matéria e sensibilidade, estabelece uma base silenciosa que acolhe novas conexões, equilibrando tecnologia, afeto e bem-estar.</p>
             </div>
         </div>
         <div class="dock-wrapper">
             <nav class="dock">
                 <div class="swatch active" style="background: var(--papiro);" onclick="updateRec('Bege papiro', 'Minimalista e onírico', 'var(--papiro)', false, this, 'O Bege Papiro expressa a leveza como estado essencial. Seu tom aquecido cria uma pausa visual, onde o excesso se dissolve e o espaço respira. Entre matéria e sensibilidade, estabelece uma base silenciosa que acolhe novas conexões, equilibrando tecnologia, afeto e bem-estar.')"></div>
-                <div class="swatch" style="background: var(--retro);" onclick="updateRec('Marrom retro', 'Tons da terra', 'var(--retro)', false, this, 'O Marrom Retrô emerge como expressão do tempo inscrito na matéria. Sua tonalidade terrosa carrega a memória dos gestos artesanais e a força dos pigmentos de origem, criando espaços onde a tradição se atualiza e a identidade se revela de forma íntima e permanente.')"></div>
-                <div class="swatch" style="background: var(--hibisco);" onclick="updateRec('Hibisco', 'Vintage e atemporal', 'var(--hibisco)', false, this, 'O padrão Hibisco revela uma profundidade que atravessa o tempo. Sua cor acolhedora ressignifica o vintage com um olhar contemporâneo, despertando memórias afetivas e uma sensação de familiaridade. Entre o lúdico e o essencial, cria ambientes que celebram a permanência do afeto e a força de um estilo que não envelhece.')"></div>
-                <div class="swatch" style="background: var(--timborana); background-image: linear-gradient(45deg, #b88b58, #8e623a);" onclick="updateRec('Timborana silvestre', 'Naturalidade brasileira', 'var(--timborana)', true, this, 'Celebrando a beleza em seu estado mais genuíno, a Timborana Silvestre traduz a força silenciosa da natureza bruta. Seus tons aquecidos e texturas profundas evocam o orgânico, criando uma atmosfera sensível que reconecta os espaços à sua essência primordial.')"></div>
-                <div class="swatch" style="background: var(--brun); background-image: linear-gradient(45deg, #2c1f18, #4a3728);" onclick="updateRec('Carvalho brun', 'Intenso e afetivo', 'var(--brun)', true, this, 'O Carvalho Brun traduz o encontro entre memória e profundidade. Em tons escuros e envolventes, sua presença cria um refúgio sensorial, onde o afeto se manifesta no silêncio da matéria. Uma madeira que acolhe, instiga e transforma o espaço em uma experiência íntima, intensa e carregada de significado.')"></div>
+                <div class="swatch" style="background: var(--retro);" onclick="updateRec('Marrom retro', 'Tons da terra', 'var(--retro)', false, this, 'O Marrom Retrô emerge como expressão do tempo inscrito na matéria. Sua tonalidade terrosa carrega a memória dos gestos artesanais e a força dos pigmentos de origem, criando espaços onde a tradição se atualiza.')"></div>
+                <div class="swatch" style="background: var(--hibisco);" onclick="updateRec('Hibisco', 'Vintage e atemporal', 'var(--hibisco)', false, this, 'O padrão Hibisco revela uma profundidade que atravessa o tempo. Sua cor acolhedora ressignifica o vintage com um olhar contemporâneo, despertando memórias afetivas e uma sensação de familiaridade.')"></div>
+                <div class="swatch" style="background: var(--timborana); background-image: linear-gradient(45deg, #b88b58, #8e623a);" onclick="updateRec('Timborana silvestre', 'Naturalidade brasileira', 'var(--timborana)', true, this, 'Celebrando a beleza em seu estado mais genuíno, a Timborana Silvestre traduz a força silenciosa da natureza bruta. Seus tons aquecidos reconectam os espaços à sua essência primordial.')"></div>
+                <div class="swatch" style="background: var(--brun); background-image: linear-gradient(45deg, #2c1f18, #4a3728);" onclick="updateRec('Carvalho brun', 'Intenso e afetivo', 'var(--brun)', true, this, 'O Carvalho Brun traduz o encontro entre memória e profundidade. Em tons escuros e envolventes, sua presença cria um refúgio sensorial, onde o afeto se manifesta no silêncio da matéria.')"></div>
             </nav>
         </div>
     </div>
@@ -196,43 +197,27 @@
             document.getElementById(pageId).classList.add('active');
         }
 
-        async function sharePage() {
-            try {
-                if (navigator.share) { await navigator.share({ title: 'Clube Duratex', url: window.location.href }); } 
-                else { navigator.clipboard.writeText(window.location.href); alert('Link copiado!'); }
-            } catch (err) {}
-        }
+        function showRecanto() { document.getElementById('recanto-page').style.display = 'block'; document.body.style.overflow = 'hidden'; }
+        function hideRecanto() { document.getElementById('recanto-page').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-        function showRecanto() {
-            document.getElementById('recanto-page').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function hideRecanto() {
-            document.getElementById('recanto-page').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        function calcSimples() {
+            const contas = parseFloat(document.getElementById('custoFixo').value) || 0;
+            const salario = parseFloat(document.getElementById('salario').value) || 0;
+            const material = parseFloat(document.getElementById('mat').value) || 0;
+            const diasObra = parseFloat(document.getElementById('diasMovel').value) || 0;
+            const custoDiario = (contas + salario) / 22;
+            const total = (custoDiario * diasObra + material) * 1.15;
+            document.getElementById('outTotal').innerText = total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
         }
 
         function updateRec(name, line, color, isWood, el, desc) {
-            const content = document.getElementById('rec-content');
-            content.style.opacity = '0';
-            content.style.transform = 'translateY(10px)';
-
-            setTimeout(() => {
-                document.getElementById('canvas').style.backgroundColor = color;
-                document.getElementById('texture').style.opacity = isWood ? '0.2' : '0';
-                
-                const isDark = ['Marrom retro', 'Hibisco', 'Timborana silvestre', 'Carvalho brun'].includes(name);
-                document.getElementById('recanto-page').classList.toggle('dark-mode-rec', isDark);
-
-                document.getElementById('rec-title').innerText = name;
-                document.getElementById('rec-line').innerText = line;
-                document.getElementById('rec-desc').innerText = desc;
-                
-                content.style.opacity = '1';
-                content.style.transform = 'translateY(0)';
-            }, 300);
-
+            document.getElementById('canvas').style.backgroundColor = color;
+            document.getElementById('texture').style.opacity = isWood ? '0.2' : '0';
+            const isDark = ['Marrom retro', 'Hibisco', 'Timborana silvestre', 'Carvalho brun'].includes(name);
+            document.getElementById('recanto-page').classList.toggle('dark-mode-rec', isDark);
+            document.getElementById('rec-title').innerText = name;
+            document.getElementById('rec-line').innerText = line;
+            document.getElementById('rec-desc').innerText = desc;
             document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
             el.classList.add('active');
         }
